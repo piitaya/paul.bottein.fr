@@ -12,15 +12,17 @@ const tsify = require('tsify');
 const runSequence = require('run-sequence');
 const gutil = require('gulp-util');
 
+const out_dir = 'build';
+
 gulp.task('clean', function () {
-    return gulp.src('build', {read: false})
+    return gulp.src(out_dir, {read: false})
     .pipe(clean());
 });
 
 gulp.task('html', () => {
     return gulp.src('src/views/*.ejs')
     .pipe(ejs({}, {}, {ext: '.html'}).on('error', gutil.log))
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest(`${out_dir}/`))
     .pipe(connect.reload());
 });
 
@@ -29,12 +31,12 @@ gulp.task('css', () => {
         autoprefixer({browsers: ['last 2 versions']}),
         cssnano()
     ];
-    return gulp.src('./src/sass/main.scss')
+    return gulp.src('src/sass/main.scss')
     .pipe(sass({
         includePaths: ['node_modules']
     }).on('error', sass.logError))
     .pipe(postcss(plugins))
-    .pipe(gulp.dest('./build/css'))
+    .pipe(gulp.dest(`./${out_dir}/css`))
     .pipe(connect.reload());
 });
 
@@ -49,14 +51,24 @@ gulp.task('js', () => {
     .plugin(tsify)
     .bundle()
     .pipe(source('main.js'))
-    .pipe(gulp.dest("build/js"))
+    .pipe(gulp.dest(`${out_dir}/js`))
     .pipe(connect.reload());
+});
+
+gulp.task('cname', () => {
+    return gulp.src('CNAME')
+    .pipe(gulp.dest(`${out_dir}/`));
+});
+
+gulp.task('assets', () => {
+    return gulp.src(['src/assets/**/*'])
+    .pipe(gulp.dest(`${out_dir}/assets`));
 });
 
 gulp.task('build', () => {
     runSequence(
         'clean',
-        ['html', 'css', 'js']
+        ['html', 'css', 'js', 'cname', 'assets']
     );
 });
 
@@ -68,7 +80,7 @@ gulp.task('watch', () => {
 
 gulp.task('connect', function() {
     connect.server({
-        root: 'build',
+        root: out_dir,
         livereload: true
     });
 });
@@ -80,4 +92,4 @@ gulp.task('dev', () => {
     );
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', ['dev']);
