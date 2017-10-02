@@ -1,0 +1,40 @@
+{
+  "name": "paul.bottein.fr",
+  "version": "1.0.0",
+  "description": "Personal Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piitaya/paul.bottein.fr.git"
+  },
+  "author": "Paul Bottein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piitaya/paul.bottein.fr/issues"
+  },
+  "homepage": "https://github.com/piitaya/paul.bottein.fr#readme",
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "browserify": "^14.4.0",
+    "cssnano": "^3.10.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-connect": "^5.0.0",
+    "gulp-ejs": "^3.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-typescript": "^3.2.2",
+    "run-sequence": "^2.2.0",
+    "tsify": "^3.0.3",
+    "typescript": "^2.5.3",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "material-components-web": "^0.21.1"
+  }
+}
