@@ -4,6 +4,6 @@ node_js:
 branches:
   only:
     - master
-script: gulp
+script: gulp build
 after_success:
   - bash ./deploy.sh
