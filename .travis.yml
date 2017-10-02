@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "7"
+branches:
+  only:
+    - master
+before_script:
+  - npm install
+script: gulp
+after_success:
+  - bash ./deploy.sh
