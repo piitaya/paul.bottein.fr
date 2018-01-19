@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
 const ejs = require('gulp-ejs');
@@ -11,8 +13,11 @@ const browserify = require('browserify');
 const tsify = require('tsify');
 const runSequence = require('run-sequence');
 const gutil = require('gulp-util');
+const gdata = require('gulp-data');
 
 const out_dir = 'dist';
+const port = process.env.PORT || 3000;
+const livereload_port = 13888;
 
 gulp.task('clean', function () {
     return gulp.src(out_dir, {read: false})
@@ -20,7 +25,14 @@ gulp.task('clean', function () {
 });
 
 gulp.task('html', () => {
-    return gulp.src('src/views/*.ejs')
+    gulp.src('src/views/*.ejs')
+    .pipe(gdata((file) => {
+        try{
+            return JSON.parse(fs.readFileSync('src/data/' + path.basename(file.path, '.ejs') + '.json'));
+        } catch(e){
+            gutil.log(gutil.colors.red('Views'), "- File", 'src/data/' + path.basename(file.path, '.ejs') + '.json', "doesn't exist.");
+        }
+    }))
     .pipe(ejs({}, {}, {ext: '.html'}).on('error', gutil.log))
     .pipe(gulp.dest(`${out_dir}/`))
     .pipe(connect.reload());
@@ -34,15 +46,15 @@ gulp.task('css', () => {
     return gulp.src('src/sass/main.scss')
     .pipe(sass({
         includePaths: ['node_modules']
-    }).on('error', sass.logError))
+    })
+    .on('error', sass.logError))
     .pipe(postcss(plugins))
     .pipe(gulp.dest(`./${out_dir}/css`))
     .pipe(connect.reload());
 });
 
 gulp.task('js', () => {
-    return browserify({
-        //basedir: '.',
+    browserify({
         debug: true,
         entries: ['src/ts/main.ts'],
         cache: {},
@@ -50,6 +62,7 @@ gulp.task('js', () => {
     })
     .plugin(tsify)
     .bundle()
+    .on('error', gutil.log)
     .pipe(source('main.js'))
     .pipe(gulp.dest(`${out_dir}/js`))
     .pipe(connect.reload());
@@ -68,7 +81,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch('src/views/**/*.ejs', ['html']);
+    gulp.watch(['src/views/**/*.ejs', 'src/data/**/*.json'], ['html']);
     gulp.watch('src/sass/**/*.scss', ['css']);
     gulp.watch('src/ts/**/*.ts', ['js']);
 });
@@ -76,7 +89,10 @@ gulp.task('watch', () => {
 gulp.task('connect', function() {
     connect.server({
         root: out_dir,
-        livereload: true
+        livereload: {
+            port: livereload_port
+        },
+        port: port,
     });
 });
 
