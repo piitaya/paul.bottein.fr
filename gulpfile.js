@@ -12,7 +12,7 @@ const tsify = require('tsify');
 const runSequence = require('run-sequence');
 const gutil = require('gulp-util');
 
-const out_dir = 'build';
+const out_dir = 'dist';
 
 gulp.task('clean', function () {
     return gulp.src(out_dir, {read: false})
@@ -55,11 +55,6 @@ gulp.task('js', () => {
     .pipe(connect.reload());
 });
 
-gulp.task('cname', () => {
-    return gulp.src('CNAME')
-    .pipe(gulp.dest(`${out_dir}/`));
-});
-
 gulp.task('assets', () => {
     return gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest(`${out_dir}/assets`));
@@ -68,7 +63,7 @@ gulp.task('assets', () => {
 gulp.task('build', () => {
     runSequence(
         'clean',
-        ['html', 'css', 'js', 'cname', 'assets']
+        ['html', 'css', 'js', 'assets']
     );
 });
 
