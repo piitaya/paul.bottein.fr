@@ -1,3 +1,31 @@
 {
-    "text": "Working progress..."
+    "hero": {
+        "title": "Paul Bottein",
+        "subtitle": "Développeur Front-end"
+    },
+    "experiences": [{
+        "job_title": "Développeur Front-end",
+        "company": "Giroptic",
+        "date": "Oct. 2016 - Actuel",
+        "location": "Lille, France",
+        "description": "Développement Web (Javascript, AngularJS, Angular, React, NodeJS) - Création d’un lecteur de photo/vidéo 360. Refonte des sites de ecommerce, de partage de vidéos, de gestion de compte et création d’une API. Réalisation de prototypes. Gestion des environnements de tests et de production."
+    }, {
+        "job_title": "Développeur Front-end",
+        "company": "IBM Service Center",
+        "date": "Févr. 2015 - Sept 2016",
+        "location": "Lille, France",
+        "description": "Développement Web (AngularJS - NodeJS) - Création d’un site de vente en ligne. Création de tableaux de bord de visualisation de données de capteurs en temps réel. Création d’une application mobile hybride d’exécution de questionnaires."
+    }, {
+        "job_title": "Ingénieur d'étude et développement",
+        "company": "Sopra",
+        "date": "Juil. 2014 - Janv. 2015",
+        "location": "Lille, France",
+        "description": "Développement Web (Java JEE) - Maintenance d’une application de SAV."
+    }, {
+        "job_title": "Projet de fin d’étude",
+        "company": "LCPI",
+        "date": "Févr. 2014 - Juin 2014",
+        "location": "Paris, France",
+        "description": "Développement applicatif (Java) - Implémentation d’une interface tactile dans un logiciel d’aide à la conception pour les designers."
+    }]
 }

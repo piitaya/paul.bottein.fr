@@ -9,11 +9,10 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 <body>
-    <nav class="navbar"></nav>
-    <main>
-        <i class="material-icons">warning</i>
-        <h1><%= text %></h1>
-    </main>
+    <%- include('components/header'); %>
+    <%- include('components/experiences'); %>
+    <%- include('components/work-in-progress'); %>
+    <%- include('components/footer'); %>
 </div>
 <script src="/js/main.js"></script>
 </body>

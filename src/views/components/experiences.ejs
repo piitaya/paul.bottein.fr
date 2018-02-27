@@ -1,0 +1,30 @@
+<section class="section" id="experiences">
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title is-centered">
+                    Experiences
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="timeline">
+                    <% experiences.forEach((experience) => { %>
+                        <div class="timeline-item">
+                            <div class="work-place">
+                                <p class="place"><%= experience.company %></p>
+                                <p class="location"><i class="material-icons">location_on</i><%= experience.location %></p>
+                            </div>
+                            <div class="job-meta">
+                                <p class="job"><%= experience.job_title %></p>
+                                <p class="time"><%= experience.date %></p>
+                            </div>
+                            <div class="job-desc content">
+                                <p><%= experience.description %></p> 
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
