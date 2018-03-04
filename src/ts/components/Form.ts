@@ -8,11 +8,12 @@ export class Form {
 
     private onSubmit = (e: Event) => {
         e.preventDefault();
-        let data = Form.serialize(this.form);
-        console.log(data);
+
+        let body: any = Form.serialize(this.form);
+        
         fetch(this.form.action, {
             method: "POST",
-            body: data
+            body: JSON.stringify(body)
         }).then((res: Response) => { 
             console.log(res.json());
         }).catch((err: any) => {
@@ -20,9 +21,9 @@ export class Form {
         });
     };
 
-    static serialize(form: HTMLFormElement): string {
+    static serialize(form: HTMLFormElement): any {
         let field: HTMLFormElement;
-        let s: string[] = [];
+        let body: any = {};
         var len = form.elements.length;
         for (let i=0; i<len; i++) {
             field = <HTMLFormElement> form.elements[i];
@@ -30,13 +31,13 @@ export class Form {
                 if (field.type == 'select-multiple') {
                     for (let j=field.options.length-1; j>=0; j--) {
                         if(field.options[j].selected)
-                            s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                            body[field.name] = field.options[j].value;
                     }
                 } else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
-                    s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                    body[field.name] = field.value;
                 }
             }
         }
-        return s.join('&').replace(/%20/g, '+');
+        return body;
     }
 }
