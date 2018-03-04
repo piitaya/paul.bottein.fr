@@ -9,11 +9,11 @@ export class Form {
     private onSubmit = (e: Event) => {
         e.preventDefault();
 
-        let body: any = Form.serialize(this.form);
+        //let body: any = Form.serialize(this.form);
         
         fetch(this.form.action, {
             method: "POST",
-            body: JSON.stringify(body)
+            body: new FormData(this.form)
         }).then((res: Response) => { 
             console.log(res.json());
         }).catch((err: any) => {
