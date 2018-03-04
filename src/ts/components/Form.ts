@@ -9,11 +9,12 @@ export class Form {
     private onSubmit = (e: Event) => {
         e.preventDefault();
 
-        //let body: any = Form.serialize(this.form);
-        
+        let body: any = Form.serialize(this.form);
+
         fetch(this.form.action, {
             method: "POST",
-            body: new FormData(this.form)
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: Form.encode(body)
         }).then((res: Response) => { 
             console.log(res.json());
         }).catch((err: any) => {
@@ -39,5 +40,11 @@ export class Form {
             }
         }
         return body;
+    }
+
+    static encode(data: any): string {
+        return Object.keys(data)
+            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+            .join("&");
     }
 }
