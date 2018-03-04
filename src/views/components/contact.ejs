@@ -1,7 +1,10 @@
 <section class="section" id="contact">
     <div class="columns">
         <div class="column">
-            <form name="contact" method="POST" action="post-contact" data-netlify="true">
+            <form name="contact" netlify-honeypot="bot-field" method="POST" action="post-contact" netlify>
+                <p class="hidden">
+                    <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+                </p>
                 <div class="field">
                     <div class="control">
                         <input name="email" class="input" type="email" placeholder="Email" required>
@@ -12,7 +15,6 @@
                         <textarea name="message" class="textarea" placeholder="Message" required></textarea>
                     </div>
                 </div>
-                <div data-netlify-recaptcha></div>
                 <div class="field is-grouped is-grouped-right">
                     <p class="control">
                         <button class="button is-primary" type="submit">
