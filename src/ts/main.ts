@@ -1,4 +1,4 @@
-import { AnchorScroll, FixedNavbar } from "./components";
+import { AnchorScroll, FixedNavbar, Form } from "./components";
 
 module app {
     export class Main {
@@ -10,6 +10,7 @@ module app {
                 elements: document.querySelectorAll('.navbar-tabs > a'),
                 activeClass: 'is-active'
             });
+            new Form(<HTMLFormElement> document.querySelector('form[name="contact"]'));
         }
 
         public static init() {
